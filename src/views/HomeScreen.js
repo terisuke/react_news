@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import News from '../services/News';
 import NewsTile from '../widgets/NewsTile';
 
-export default function HomeScreen({ navigation }) {
+const categories = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
+
+export default function HomeScreen() {
   const [articles, setArticles] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchArticles();
@@ -18,6 +22,16 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View>
+      <Button
+        title="Open Drawer"
+        onPress={() => navigation.openDrawer()}
+      />
+      {categories.map((category) => (
+        <Button
+          title={category}
+          onPress={() => navigation.navigate('Category', { category })}
+        />
+      ))}
       <FlatList
         data={articles}
         renderItem={({ item }) => (
