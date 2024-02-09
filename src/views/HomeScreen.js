@@ -22,16 +22,19 @@ export default function HomeScreen() {
 
   return (
     <View>
+      <View>
       <Button
         title="Open Drawer"
         onPress={() => navigation.openDrawer()}
       />
       {categories.map((category) => (
         <Button
+          key={category}
           title={category}
           onPress={() => navigation.navigate('Category', { category })}
         />
       ))}
+      </View>
       <FlatList
         data={articles}
         renderItem={({ item }) => (
